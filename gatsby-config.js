@@ -1,9 +1,3 @@
-/**
- * Configure your Gatsby site with this file.
- *
- * See: https://www.gatsbyjs.org/docs/gatsby-config/
- */
-
 require("dotenv").config({
   path: ".env",
 })
@@ -13,9 +7,12 @@ module.exports = {
     {
       resolve: `gatsby-source-prismic`,
       options: {
-        repositoryName: `portfolio`,
+        repositoryName: `gordy-portfolio`,
         accessToken: `${process.env.PRISMIC_KEY}`,
-        linkResolver: ({ node, key, value }) => post => `/${post.uid}`,
+        schemas: {
+          project: require("./src/schemas/project.json"),
+        },
+        // linkResolver: ({ node, key, value }) => project => `/${project.uid}`,
       },
     },
   ],
