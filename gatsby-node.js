@@ -9,19 +9,22 @@ exports.createPages = async ({ graphql, actions }) => {
         edges {
           node {
             id
-          }
-        }
-        nodes {
-          data {
-            project_title {
-              html
-            }
-            project_description {
-              html
-            }
+            uid
           }
         }
       }
     }
   `)
+
+  const template = path.resolve("src/templates/project.jsx")
+
+  pages.data.allPrismicProject.edges.forEach(edge => {
+    createPage({
+      path: `/${edge.node.uid}`,
+      component: template,
+      context: {
+        uid: edge.node.uid,
+      },
+    })
+  })
 }
